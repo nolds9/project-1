@@ -17,6 +17,11 @@ var game = {
 
   shuffleDeck: function() {
     // Fisher-Yates shuffle
-    
+    for (var i = this.deck.length - 1; i > 0; i--) {
+      var randomIndex = Math.floor(Math.random() * 52);
+      var hold = this.deck[i];
+      this.deck[i] = this.deck[randomIndex];
+      this.deck[randomIndex] = hold;
+    }
   }
 };
