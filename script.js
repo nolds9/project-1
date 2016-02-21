@@ -1,4 +1,3 @@
-// start with High Card
 var values = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"];
 var suits = ["clubs", "diamonds", "hearts", "spades"];
 
@@ -27,17 +26,29 @@ var game = {
     }
   },
 
-  dealCards: function() {
-    // for each player, evenly distribute deck
-    var numberToDeal = this.deck.length / this.players.length;
+  setUpHands: function() {
+    // create hand objects for each player
     var self = this;
     this.players.forEach(function(player) {
       self.hands.push({name: player, cards: []});
     });
-    this.hands.forEach(function(player) {
-      for (var i = 0; i < numberToDeal; i++) {
-        player.cards.push(self.deck.pop());
+  },
+
+  dealCards: function() {
+    while (this.deck.length > 0) {
+      for (var i = 0; i < this.hands.length; i++) {
+        // if there are no cards left stop dealing
+        if (this.deck.length < 1) {
+          break;
+        } else {
+          this.hands[i].cards.push(this.deck.pop());
+        }
       }
-    });
+    }
   }
 };
+
+game.newDeck();
+game.shuffleDeck();
+game.setUpHands();
+game.dealCards();
