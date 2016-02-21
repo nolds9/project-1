@@ -5,7 +5,7 @@ var suits = ["clubs", "diamonds", "hearts", "spades"];
 var game = {
   deck: [],
   hands: [],
-  players: ["Player 1", "Player 2"],
+  players: ["Player 1", "Player 2", "Player 3"],
 
   newDeck: function() {
     var self = this;
@@ -29,9 +29,15 @@ var game = {
 
   dealCards: function() {
     // for each player, evenly distribute deck
+    var numberToDeal = this.deck.length / this.players.length;
     var self = this;
     this.players.forEach(function(player) {
-      self.hands.push({name: player});
+      self.hands.push({name: player, cards: []});
+    });
+    this.hands.forEach(function(player) {
+      for (var i = 0; i < numberToDeal; i++) {
+        player.cards.push(self.deck.pop());
+      }
     });
   }
 };
