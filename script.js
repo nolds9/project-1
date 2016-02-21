@@ -4,13 +4,15 @@ var suits = ["clubs", "diamonds", "hearts", "spades"];
 
 var game = {
   deck: [],
-  hand: [],
+  hands: [],
+  players: ["Player 1", "Player 2"],
 
   newDeck: function() {
     var self = this;
     values.forEach(function(value) {
       suits.forEach(function(suit) {
-        self.deck.push(value + " " + suit);
+        self.deck.push({value: value, suit: suit, weight: values.indexOf(value)});
+        // weight is how we will determine winners
       });
     });
   },
@@ -18,10 +20,18 @@ var game = {
   shuffleDeck: function() {
     // Fisher-Yates shuffle
     for (var i = this.deck.length - 1; i > 0; i--) {
-      var randomIndex = Math.floor(Math.random() * 52);
+      var randomIndex = Math.floor(Math.random() * i);
       var hold = this.deck[i];
       this.deck[i] = this.deck[randomIndex];
       this.deck[randomIndex] = hold;
     }
+  },
+
+  dealCards: function() {
+    // for each player, evenly distribute deck
+    var self = this;
+    this.players.forEach(function(player) {
+      self.hands.push({name: player});
+    });
   }
 };
