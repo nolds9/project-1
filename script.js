@@ -5,6 +5,7 @@ var game = {
   deck: [],
   hands: [],
   players: ["Player 1", "Player 2", "Player 3"],
+  stage: [],
 
   newDeck: function() {
     var self = this;
@@ -37,7 +38,7 @@ var game = {
   dealCards: function() {
     while (this.deck.length > 0) {
       for (var i = 0; i < this.hands.length; i++) {
-        // if there are no cards left stop dealing
+        // if there are no cards remaining stop dealing
         if (this.deck.length < 1) {
           break;
         } else {
@@ -45,6 +46,17 @@ var game = {
         }
       }
     }
+  },
+
+  getWinner: function() {
+    // compare the last card in each players hand
+    for (var i = 0; i < this.players.length; i++) {
+      this.stage.push({player: this.players[i], card: this.hands[i].cards[this.hands[i].cards.length - 1]});
+    }
+    var self = this;
+    this.stage.sort(function(a, b) {
+      return b.card.weight - a.card.weight;
+    });
   }
 };
 
