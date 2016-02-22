@@ -2,8 +2,42 @@
   box-sizing: border-box;
 }
 
+header {
+  text-align: center;
+}
+.button {
+  text-align: center;
+}
+
+.main {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 400px;
+}
+
 .hand {
-  border: 2px solid black;
+border: 2px solid black;
+height: 300px;
+width: 200px;
+}
+
+.stage-area {
+  display: flex;
+  justify-content: space-around;
+  border: 2px solid green;
+  height: 300px;
+  width: 400px;
+}
+
+.player, .computer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stage-card {
+  border: 2px solid red;
   height: 300px;
   width: 200px;
 }
