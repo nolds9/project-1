@@ -4,7 +4,7 @@ var suits = ["clubs", "diamonds", "hearts", "spades"];
 var game = {
   deck: [],
   hands: [],
-  players: ["Player 1", "Player 2", "Player 3"],
+  players: ["Player 1", "Player 2"],
   stage: [],
 
   newDeck: function() {
@@ -64,3 +64,16 @@ game.newDeck();
 game.shuffleDeck();
 game.setUpHands();
 game.dealCards();
+game.getWinner();
+
+  var flipButton = document.getElementById("flip");
+  flipButton.addEventListener("click", flipCards);
+
+
+function flipCards() {
+    var message = "";
+    game.stage.forEach(function(i) {
+      message += i.player + " had the " + i.card.value + " of " + i.card.suit + "\n";
+    });
+    alert(message);
+}
