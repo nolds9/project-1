@@ -10,14 +10,30 @@
     <h1>&clubs; &diams; War &hearts; &spades;</h1>
   </header>
   <div class="button">
-    <button id="flip">Flip Cards</button>
+    <button id="reset">Reset</button>
   </div>
 
   <div class="main">
-  <div class="player hand">Player</div>
-  <div class="stage-area"></div>
-  <div class="computer hand">Computer</div>
-</div>
+    <div class="player hand" id="flip">Player</div>
+    <div class="stage-area"></div>
+    <div class="computer hand">Computer</div>
+  </div>
+  <div class="remaining">
+    <h3 class="player">Remaining Cards: 26</h3>
+    <h3 class="computer">Remaining Cards: 26</h3>
+  </div>
+
+  <div class="info">
+    <p>
+      The deck has been shuffled and dealt. CLICK the player deck to flip the cards!
+    </p>
+    <p>
+      The game will end when one player's remaining cards reaches 0.
+    </p>
+    <p>
+      CLICK "Reset" to re-shuffle and re-deal.
+    </p>
+  </div>
 
   <script src="script.js" type="text/javascript"></script>
 </body>

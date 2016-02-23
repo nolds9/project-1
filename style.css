@@ -1,25 +1,51 @@
 * {
   box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background: green;
 }
 
 header {
   text-align: center;
+  font-size: 2em;
 }
+
 .button {
   text-align: center;
+}
+
+button {
+  font-size: 30px;
+  border-radius: 10px;
+  border: 1px solid white;
+  height: 50px;
+  width: 150px;
+  border
 }
 
 .main {
   display: flex;
   justify-content: space-around;
+  align-items: flex-end;
+  height: 300px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  height: 400px;
+  font-size: 2em;
 }
 
 .hand {
 border: 2px solid black;
+font-size: 2.5em;
+font-weight: bold;
+border-radius: 15px;
 height: 300px;
-width: 200px;
+width: 215px;
 }
 
 .stage-area {
@@ -35,11 +61,51 @@ width: 200px;
   align-items: center;
 }
 
+.main .player {
+  background-image: url("https://cdn.shopify.com/s/files/1/0200/7616/products/aladdin-back-red_large.png?v=1443563775");
+  background-size: contain;
+  background-repeat: no-repeat;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
+}
+
+
+
+.main .computer {
+  background-image: url("https://cdn.shopify.com/s/files/1/0200/7616/products/aladdin-back-blue_large.png?v=1443563775");
+  background-size: contain;
+  background-repeat: no-repeat;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
+}
+
+.remaining {
+  display: flex;
+  justify-content: space-between;
+}
+
+.remaining .player {
+  margin-left: 70px;
+  background-color: red;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0 5px;
+}
+
+.remaining .computer {
+margin-right: 65px;
+background-color: blue;
+border: 1px solid black;
+border-radius: 5px;
+padding: 0 5px;
+}
+
 .stage-card {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid red;
+  background-color: white;
+  border: 2px solid black;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
+  border-radius: 15px;
   height: 300px;
-  width: 200px;
+  width: 215px;
 }
