@@ -48,7 +48,7 @@ var game = {
     }
   },
 
-  setUpStage: function() {
+  cardsToStage: function() {
     // put the top card in each players hand to the staging area and compare
     for (var i = 0; i < this.players.length; i++) {
       this.stage.push({player: this.players[i], card: this.hands[i].cards.pop()});
@@ -67,7 +67,7 @@ game.newDeck();
 game.shuffleDeck();
 game.setUpHands();
 game.dealCards();
-// game.setUpStage();
+// game.cardsToStage();
 
 // function createStage() {
 //   // target each hand div then append child (stage) to that div
@@ -92,8 +92,8 @@ flipButton.addEventListener("click", function() {
 
 
 function flipCards() {
-  game.setUpStage();
-  setStage();
+  game.cardsToStage();
+  showCards();
   game.getWinner();
   var winner = game.stage[0].player;
   for (var i = 0; i < game.stage.length; i++) {
@@ -108,7 +108,7 @@ function flipCards() {
   // alert(message);
 }
 
-function setStage() {
+function showCards() {
   for (var i = 0; i < 2; i++) {
     var stageCard = document.createElement("div");
     stageCard.setAttribute("class","stage-card");
