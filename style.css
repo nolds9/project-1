@@ -24,10 +24,9 @@ width: 200px;
 
 .stage-area {
   display: flex;
-  justify-content: space-around;
-  border: 2px solid green;
+  justify-content: space-between;
   height: 300px;
-  width: 400px;
+  width: 500px;
 }
 
 .player, .computer {
@@ -37,6 +36,9 @@ width: 200px;
 }
 
 .stage-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 2px solid red;
   height: 300px;
   width: 200px;

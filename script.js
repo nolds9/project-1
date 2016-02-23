@@ -81,27 +81,29 @@ game.dealCards();
 
 var flipButton = document.getElementById("flip");
 var stagingArea = document.querySelector(".stage-area");
-
 flipButton.addEventListener("click", function() {
+  if (game.hands[0].cards.length > 0 && game.hands[1].cards.length > 0) {
   flipCards();
-  setStage();
   game.stage = [];
+} else {
+  alert("Game Over!");
+}
 });
+
 
 function flipCards() {
   game.setUpStage();
+  setStage();
   game.getWinner();
-  // var message = "";
   var winner = game.stage[0].player;
   for (var i = 0; i < game.stage.length; i++) {
-  //   message += game.stage[i].player + " had the " + game.stage[i].card.value + " of " + game.stage[i].card.suit + "\n";
     for (var j = 0; j < game.hands.length; j++) {
       if (game.hands[j].name === winner) {
         game.hands[j].cards.unshift(game.stage[i].card);
       }
     }
   }
-  console.log(game.hands);
+  console.log(game.hands[0].cards.length);
   // game.stage = [];
   // alert(message);
 }
@@ -111,25 +113,17 @@ function setStage() {
     var stageCard = document.createElement("div");
     stageCard.setAttribute("class","stage-card");
     stagingArea.appendChild(stageCard);
+    //this is putting every high card on players side...
     stageCard.innerText = game.stage[i].card.value + " " + game.stage[i].card.suit;
     setTimeout(function () {
       var cards = document.querySelectorAll(".stage-card");
       for (var i = 0; i < cards.length; i++) {
-          stagingArea.removeChild(cards[i]);
+        stagingArea.removeChild(cards[i]);
       }
-       }, 3000);
-}
+    }, 2000);
+    }
 }
 
-function styleStage() {
-  //select stage card
-  //append text node to that card with each players card value and suit
-  // var cards = document.querySelectorAll(".stage-card");
-  // console.log(cards);
-  // for (var i = 0; i < game.stage.length; i++) {
-  //   cards[i].innerText = game.stage[i].card.value + " " + game.stage[i].card.suit;
-  // }
-}
 function checkTie() {
   // if the card weight is equal return card to players hand
 
