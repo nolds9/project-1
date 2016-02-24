@@ -7,6 +7,12 @@ var game = {
   players: ["Player 1", "Computer"],
   stage: [],
   war: [],
+  elements: {
+    resetButton: document.getElementById("reset"),
+    flipButton: document.getElementById("flip"),
+    stagingArea: document.querySelector(".stage-area"),
+    gameUpdates: document.querySelector(".updates")
+  },
 
   newDeck: function() {
     var self = this;
@@ -74,17 +80,17 @@ var game = {
     // all cards go to winners hand
     var self = this;
     if (this.stage[0].card.weight === this.stage[1].card.weight) {
-      this.stage.forEach(function(i) {
-        self.war.push({player: i.player, cards: []});
+      this.stage.forEach(function(hand) {
+        self.war.push({player: hand.player, cards: []});
       });
-      this.hands.forEach(function(i) {
-        if (i.name === self.war[0].player) {
+      this.hands.forEach(function(hand) {
+        if (hand.name === self.war[0].player) {
           for (var j = 0; j < 4; j++) {
-            self.war[0].cards.push(i.cards.pop());
+            self.war[0].cards.push(hand.cards.pop());
           }
-        } else if (i.name === self.war[1].player) {
+        } else if (hand.name === self.war[1].player) {
           for (var k = 0; k < 4; k++) {
-            self.war[1].cards.push(i.cards.pop());
+            self.war[1].cards.push(hand.cards.pop());
           }
         }
       });
@@ -98,25 +104,22 @@ var game = {
     this.war.sort(function(a, b) {
       return b.cards[3].weight - a.cards[3].weight;
     });
-    console.log(game.war[0]);
-    console.log(game.war[1]);
   },
 
   showCards: function() {
+    var self = this;
     for (var i = 0; i < 2; i++) {
-      var stagingArea = document.querySelector(".stage-area");
       var stageCard = document.createElement("div");
       var cardValue = this.stage[i].card.value;
       var cardSuit = this.stage[i].card.suit;
       stageCard.style.backgroundImage = "url(images/" + cardValue + "_of_" + cardSuit + ".png)";
       stageCard.style.backgroundSize = "cover";
-      console.log(cardValue + cardSuit);
       stageCard.setAttribute("class","stage-card");
-      stagingArea.appendChild(stageCard);
+      this.elements.stagingArea.appendChild(stageCard);
       setTimeout(function () {
         var cards = document.querySelectorAll(".stage-card");
         for (var i = 0; i < cards.length; i++) {
-          stagingArea.removeChild(cards[i]);
+          self.elements.stagingArea.removeChild(cards[i]);
         }
       }, 2000);
     }
@@ -126,27 +129,41 @@ var game = {
     this.cardsToStage();
     this.showCards();
     if (this.buildWarStage()) {
+      var messageArea = document.querySelector(".message");
+      messageArea.style.fontSize = "1.5em";
       this.warWinner();
       if (this.war[0].player === this.hands[0].name) {
         for (var y = 0; y < 4; y++) {
           this.hands[0].cards.unshift(this.war[0].cards[y]);
           this.hands[0].cards.unshift(this.war[1].cards[y]);
         }
+        messageArea.innerText = "WAR! You win!";
+        this.playUpdates("It's a tie! You won the WAR!")
       } else if (this.war[0].player === this.hands[1].name) {
         for (var x = 0; x < 4; x++) {
           this.hands[1].cards.unshift(this.war[0].cards[x]);
           this.hands[1].cards.unshift(this.war[1].cards[x]);
         }
+        messageArea.innerText = "WAR! Computer wins.";
+        this.playUpdates("It's a tie! The computer won the WAR.")
       }
+      setTimeout(function() {
+        messageArea.innerText = "";
+      }, 2000);
       this.giveStageCards(this.war[0]);
       this.war = [];
     } else {
       this.getWinner();
       this.giveStageCards(this.stage[0]);
+      if (this.stage[0].player === this.hands[0].name) {
+        this.playUpdates("You won the hand!");
+      } else if (this.stage[0].player === this.hands[1].name) {
+        this.playUpdates("The computer won the hand.");
+      }
     }
-  },
+   },
 
-  updateRemaining: function() {
+  updateRemainingCards: function() {
     var playerRemaining = document.querySelector(".remaining .player");
     var computerRemaining = document.querySelector(".remaining .computer");
 
@@ -165,6 +182,10 @@ var game = {
     }
   },
 
+  playUpdates: function(update) {
+    this.elements.gameUpdates.innerText = update;
+  },
+
   reset: function() {
     this.deck = [];
     this.hands = [];
@@ -174,7 +195,8 @@ var game = {
     this.shuffleDeck();
     this.setUpHands();
     this.dealCards();
-    this.updateRemaining();
+    this.updateRemainingCards();
+    game.playUpdates("The deck has been shuffled and dealt. CLICK the player deck to flip the cards!");
   }
 };
 
@@ -183,19 +205,20 @@ game.shuffleDeck();
 game.setUpHands();
 game.dealCards();
 
-var resetButton = document.getElementById("reset");
-var flipButton = document.getElementById("flip");
 
-resetButton.addEventListener("click", function() {
+game.elements.resetButton.addEventListener("click", function() {
   game.reset();
 });
 
-flipButton.addEventListener("click", function() {
+game.elements.flipButton.addEventListener("click", function() {
   if (game.hands[0].cards.length > 0 && game.hands[1].cards.length > 0) {
     game.flipCards();
+
     game.stage = [];
   } else {
     alert("Game Over!");
   }
-  game.updateRemaining();
+  game.updateRemainingCards();
 });
+
+game.playUpdates("The deck has been shuffled and dealt. CLICK the player deck to flip the cards!");

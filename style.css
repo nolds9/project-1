@@ -9,7 +9,13 @@ body {
 
 header {
   text-align: center;
-  font-size: 2em;
+  font-size: 1.5em;
+}
+
+.message {
+  height: 30px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .button {
@@ -22,7 +28,7 @@ button {
   border: 1px solid white;
   height: 50px;
   width: 150px;
-  border
+  margin-bottom: 10px;
 }
 
 .main {
