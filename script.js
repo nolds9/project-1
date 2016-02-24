@@ -37,6 +37,7 @@ var game = {
   },
 
   dealCards: function() {
+    // deal one card to each player, then repeat until the deck is empty
     while (this.deck.length > 0) {
       for (var i = 0; i < this.hands.length; i++) {
         // if there are no cards remaining stop dealing
@@ -58,11 +59,110 @@ var game = {
 
   getWinner: function() {
     //compare cards in stage by weight
-    var self = this;
     this.stage.sort(function(a, b) {
       return b.card.weight - a.card.weight;
     });
 
+  },
+
+  buildWarStage: function() {
+    // IF the card weight is equal
+    // go back 4 indexes in hands
+    // compare again
+    // IF equal go back 4 more indexes and compare again
+    // repeat until someone wins
+    // all cards go to winners hand
+    var self = this;
+    if (this.stage[0].card.weight === this.stage[1].card.weight) {
+      this.stage.forEach(function(i) {
+        self.war.push({player: i.player, cards: []});
+      });
+      this.hands.forEach(function(i) {
+        if (i.name === self.war[0].player) {
+          for (var j = 0; j < 4; j++) {
+            self.war[0].cards.push(i.cards.pop());
+          }
+        } else if (i.name === self.war[1].player) {
+          for (var k = 0; k < 4; k++) {
+            self.war[1].cards.push(i.cards.pop());
+          }
+        }
+      });
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+  warWinner: function() {
+    this.war.sort(function(a, b) {
+      return b.cards[3].weight - a.cards[3].weight;
+    });
+    console.log(game.war[0]);
+    console.log(game.war[1]);
+  },
+
+  showCards: function() {
+    for (var i = 0; i < 2; i++) {
+      var stageCard = document.createElement("div");
+      stageCard.setAttribute("class","stage-card");
+      stagingArea.appendChild(stageCard);
+      stageCard.innerText = this.stage[i].card.value + "\n";
+      stageCard.innerText += this.stage[i].card.suit;
+      stageCard.style.fontSize = "48px";
+      setTimeout(function () {
+        var cards = document.querySelectorAll(".stage-card");
+        for (var i = 0; i < cards.length; i++) {
+          stagingArea.removeChild(cards[i]);
+        }
+      }, 500);
+    }
+  },
+
+  flipCards: function() {
+    this.cardsToStage();
+    this.showCards();
+    if (this.buildWarStage()) {
+      this.warWinner();
+      if (this.war[0].player === this.hands[0].name) {
+        for (var y = 0; y < 4; y++) {
+          this.hands[0].cards.unshift(this.war[0].cards[y]);
+          this.hands[0].cards.unshift(this.war[1].cards[y]);
+        }
+      } else if (this.war[0].player === this.hands[1].name) {
+        for (var x = 0; x < 4; x++) {
+          this.hands[1].cards.unshift(this.war[0].cards[x]);
+          this.hands[1].cards.unshift(this.war[1].cards[x]);
+        }
+      }
+      var winsWar = this.war[0].player;
+      for (var a = 0; a < this.stage.length; a++) {
+        for (var b = 0; b < this.hands.length; b++) {
+          if (this.hands[b].name === winsWar) {
+            this.hands[b].cards.unshift(this.stage[a].card);
+          }
+        }
+      }
+      this.war = [];
+    } else {
+      this.getWinner();
+      var winner = this.stage[0].player;
+      for (var i = 0; i < this.stage.length; i++) {
+        for (var j = 0; j < this.hands.length; j++) {
+          if (this.hands[j].name === winner) {
+            this.hands[j].cards.unshift(this.stage[i].card);
+          }
+        }
+      }
+    }
+  },
+
+  updateRemaining: function() {
+    var playerRemaining = document.querySelector(".remaining .player");
+    var computerRemaining = document.querySelector(".remaining .computer");
+
+    playerRemaining.innerHTML = "Remaining Cards: " + this.hands[0].cards.length;
+    computerRemaining.innerHTML = "Remaining Cards: " + this.hands[1].cards.length;
   },
 
   reset: function() {
@@ -74,7 +174,7 @@ var game = {
     this.shuffleDeck();
     this.setUpHands();
     this.dealCards();
-    updateRemaining();
+    this.updateRemaining();
   }
 };
 
@@ -93,93 +193,10 @@ resetButton.addEventListener("click", function() {
 
 flipButton.addEventListener("click", function() {
   if (game.hands[0].cards.length > 0 && game.hands[1].cards.length > 0) {
-    flipCards();
+    game.flipCards();
     game.stage = [];
   } else {
     alert("Game Over!");
   }
-  updateRemaining();
+  game.updateRemaining();
 });
-
-function flipCards() {
-  game.cardsToStage();
-  showCards();
-  if (buildWarStage()) {
-    warWinner();
-    for (var x = 0; x < game.war.length; x++){
-      if (game.hands[x].name === game.war[0].player) {
-        for (var y = 0; y < 4; y++) {
-          game.hands[x].cards.unshift(game.war[0].cards[y]);
-          game.hands[x].cards.unshift(game.war[1].cards[y]);
-        }
-      }
-    }
-    game.war = [];
-  }
-  game.getWinner();
-  var winner = game.stage[0].player;
-  for (var i = 0; i < game.stage.length; i++) {
-    for (var j = 0; j < game.hands.length; j++) {
-      if (game.hands[j].name === winner) {
-        game.hands[j].cards.unshift(game.stage[i].card);
-      }
-    }
-  }
-}
-
-function showCards() {
-  for (var i = 0; i < 2; i++) {
-    var stageCard = document.createElement("div");
-    stageCard.setAttribute("class","stage-card");
-    stagingArea.appendChild(stageCard);
-    stageCard.innerText = game.stage[i].card.value + "\n";
-    stageCard.innerText += game.stage[i].card.suit;
-    stageCard.style.fontSize = "48px";
-    setTimeout(function () {
-      var cards = document.querySelectorAll(".stage-card");
-      for (var i = 0; i < cards.length; i++) {
-        stagingArea.removeChild(cards[i]);
-      }
-    }, 2000);
-  }
-}
-
-function buildWarStage() {
-  // IF the card weight is equal
-  // go back 4 indexes in hands
-  // compare again
-  // IF equal go back 4 more indexes and compare again
-  // repeat until someone wins
-  // all cards go to winners hand
-  if (game.stage[0].card.weight === game.stage[1].card.weight) {
-    game.stage.forEach(function(i) {
-      game.war.push({player: i.player, cards: []});
-    });
-    game.hands.forEach(function(i) {
-      if (i.name === game.war[0].player) {
-        for (var j = 0; j < 4; j++) {
-          game.war[0].cards.push(i.cards.pop());
-        }
-      } else if (i.name === game.war[1].player) {
-        for (var k = 0; k < 4; k++) {
-          game.war[1].cards.push(i.cards.pop());
-        }
-      }
-    });
-  }
-  return true;
-}
-
-function warWinner() {
-  game.war.sort(function(a, b) {
-    return b.cards[3].weight - a.cards[3].weight;
-  });
-}
-
-function updateRemaining() {
-  var playerRemaining = document.querySelector(".remaining .player");
-  var computerRemaining = document.querySelector(".remaining .computer");
-
-  playerRemaining.innerHTML = "Remaining Cards: " + game.hands[0].cards.length;
-  computerRemaining.innerHTML = "Remaining Cards: " + game.hands[1].cards.length;
-}
