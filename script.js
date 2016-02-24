@@ -107,11 +107,11 @@ var game = {
       var stageCard = document.createElement("div");
       var cardValue = this.stage[i].card.value;
       var cardSuit = this.stage[i].card.suit;
+      stageCard.style.backgroundImage = "url(images/" + cardValue + "_of_" + cardSuit + ".png)";
+      stageCard.style.backgroundSize = "cover";
       console.log(cardValue + cardSuit);
       stageCard.setAttribute("class","stage-card");
       stagingArea.appendChild(stageCard);
-      stageCard.style.backgroundImage = "url(images/" + cardValue + "_of_" + cardSuit + ".png)";
-      stageCard.style.backgroundSize = "cover";
       setTimeout(function () {
         var cards = document.querySelectorAll(".stage-card");
         for (var i = 0; i < cards.length; i++) {
