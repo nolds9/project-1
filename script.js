@@ -104,6 +104,7 @@ var game = {
 
   showCards: function() {
     for (var i = 0; i < 2; i++) {
+      var stagingArea = document.querySelector(".stage-area");
       var stageCard = document.createElement("div");
       var cardValue = this.stage[i].card.value;
       var cardSuit = this.stage[i].card.suit;
@@ -184,7 +185,6 @@ game.dealCards();
 
 var resetButton = document.getElementById("reset");
 var flipButton = document.getElementById("flip");
-var stagingArea = document.querySelector(".stage-area");
 
 resetButton.addEventListener("click", function() {
   game.reset();
