@@ -14,12 +14,12 @@ header {
 
 .message {
   height: 30px;
-  margin-bottom: 10px;
   text-align: center;
 }
 
 .button {
   text-align: center;
+  margin-bottom: 20px;
 }
 
 button {
@@ -107,6 +107,7 @@ padding: 0 5px;
   justify-content: center;
   align-items: center;
   border: 2px solid black;
+  background: white;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
   border-radius: 15px;
   height: 305px;

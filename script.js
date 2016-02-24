@@ -79,6 +79,7 @@ var game = {
     // repeat until someone wins
     // all cards go to winners hand
     var self = this;
+
     if (this.stage[0].card.weight === this.stage[1].card.weight) {
       this.stage.forEach(function(hand) {
         self.war.push({player: hand.player, cards: []});
@@ -129,26 +130,21 @@ var game = {
     this.cardsToStage();
     this.showCards();
     if (this.buildWarStage()) {
-      var messageArea = document.querySelector(".message");
-      messageArea.style.fontSize = "1.5em";
       this.warWinner();
       if (this.war[0].player === this.hands[0].name) {
         for (var y = 0; y < 4; y++) {
           this.hands[0].cards.unshift(this.war[0].cards[y]);
           this.hands[0].cards.unshift(this.war[1].cards[y]);
         }
-        messageArea.innerText = "WAR! You win!";
-        this.playUpdates("It's a tie! You won the WAR!")
+        this.playUpdates("It's a tie! You won the WAR!");
       } else if (this.war[0].player === this.hands[1].name) {
         for (var x = 0; x < 4; x++) {
           this.hands[1].cards.unshift(this.war[0].cards[x]);
           this.hands[1].cards.unshift(this.war[1].cards[x]);
         }
-        messageArea.innerText = "WAR! Computer wins.";
-        this.playUpdates("It's a tie! The computer won the WAR.")
+        this.playUpdates("It's a tie! The computer won the WAR.");
       }
       setTimeout(function() {
-        messageArea.innerText = "";
       }, 2000);
       this.giveStageCards(this.war[0]);
       this.war = [];
