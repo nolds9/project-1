@@ -105,17 +105,19 @@ var game = {
   showCards: function() {
     for (var i = 0; i < 2; i++) {
       var stageCard = document.createElement("div");
+      var cardValue = this.stage[i].card.value;
+      var cardSuit = this.stage[i].card.suit;
+      console.log(cardValue + cardSuit);
       stageCard.setAttribute("class","stage-card");
       stagingArea.appendChild(stageCard);
-      stageCard.innerText = this.stage[i].card.value + "\n";
-      stageCard.innerText += this.stage[i].card.suit;
-      stageCard.style.fontSize = "48px";
+      stageCard.style.backgroundImage = "url(images/" + cardValue + "_of_" + cardSuit + ".png)";
+      stageCard.style.backgroundSize = "cover";
       setTimeout(function () {
         var cards = document.querySelectorAll(".stage-card");
         for (var i = 0; i < cards.length; i++) {
           stagingArea.removeChild(cards[i]);
         }
-      }, 500);
+      }, 2000);
     }
   },
 
@@ -136,26 +138,10 @@ var game = {
         }
       }
       this.giveStageCards(this.war[0]);
-      // var winsWar = this.war[0].player;
-      // for (var a = 0; a < this.stage.length; a++) {
-      //   for (var b = 0; b < this.hands.length; b++) {
-      //     if (this.hands[b].name === winsWar) {
-      //       this.hands[b].cards.unshift(this.stage[a].card);
-      //     }
-      //   }
-      // }
       this.war = [];
     } else {
       this.getWinner();
       this.giveStageCards(this.stage[0]);
-      // var winner = this.stage[0].player;
-      // for (var i = 0; i < this.stage.length; i++) {
-      //   for (var j = 0; j < this.hands.length; j++) {
-      //     if (this.hands[j].name === winner) {
-      //       this.hands[j].cards.unshift(this.stage[i].card);
-      //     }
-      //   }
-      // }
     }
   },
 

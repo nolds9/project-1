@@ -64,7 +64,6 @@ width: 215px;
 .main .player {
   background-image: url("https://cdn.shopify.com/s/files/1/0200/7616/products/aladdin-back-red_large.png?v=1443563775");
   background-size: contain;
-  background-repeat: no-repeat;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
 }
 
@@ -73,7 +72,6 @@ width: 215px;
 .main .computer {
   background-image: url("https://cdn.shopify.com/s/files/1/0200/7616/products/aladdin-back-blue_large.png?v=1443563775");
   background-size: contain;
-  background-repeat: no-repeat;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
 }
 
@@ -102,10 +100,9 @@ padding: 0 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
   border: 2px solid black;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
   border-radius: 15px;
-  height: 300px;
+  height: 305px;
   width: 215px;
 }
