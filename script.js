@@ -135,25 +135,27 @@ var game = {
           this.hands[1].cards.unshift(this.war[1].cards[x]);
         }
       }
-      var winsWar = this.war[0].player;
-      for (var a = 0; a < this.stage.length; a++) {
-        for (var b = 0; b < this.hands.length; b++) {
-          if (this.hands[b].name === winsWar) {
-            this.hands[b].cards.unshift(this.stage[a].card);
-          }
-        }
-      }
+      this.giveStageCards(this.war[0]);
+      // var winsWar = this.war[0].player;
+      // for (var a = 0; a < this.stage.length; a++) {
+      //   for (var b = 0; b < this.hands.length; b++) {
+      //     if (this.hands[b].name === winsWar) {
+      //       this.hands[b].cards.unshift(this.stage[a].card);
+      //     }
+      //   }
+      // }
       this.war = [];
     } else {
       this.getWinner();
-      var winner = this.stage[0].player;
-      for (var i = 0; i < this.stage.length; i++) {
-        for (var j = 0; j < this.hands.length; j++) {
-          if (this.hands[j].name === winner) {
-            this.hands[j].cards.unshift(this.stage[i].card);
-          }
-        }
-      }
+      this.giveStageCards(this.stage[0]);
+      // var winner = this.stage[0].player;
+      // for (var i = 0; i < this.stage.length; i++) {
+      //   for (var j = 0; j < this.hands.length; j++) {
+      //     if (this.hands[j].name === winner) {
+      //       this.hands[j].cards.unshift(this.stage[i].card);
+      //     }
+      //   }
+      // }
     }
   },
 
@@ -163,6 +165,17 @@ var game = {
 
     playerRemaining.innerHTML = "Remaining Cards: " + this.hands[0].cards.length;
     computerRemaining.innerHTML = "Remaining Cards: " + this.hands[1].cards.length;
+  },
+
+  giveStageCards: function(playerToGive) {
+    var winner = playerToGive.player;
+    for (var i = 0; i < this.stage.length; i++) {
+      for (var j = 0; j < this.hands.length; j++) {
+        if (this.hands[j].name === winner) {
+          this.hands[j].cards.unshift(this.stage[i].card);
+        }
+      }
+    }
   },
 
   reset: function() {
