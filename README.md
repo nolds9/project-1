@@ -30,3 +30,18 @@ For this project I used HTML, CSS and vanilla javascript.
 - Notification when someone wins
 - Support for multiple players
 - Visuals for "War"
+
+## Installation
+Simply clone down this repository to a folder on your computer and open the `index.html` file in your web browser.
+
+## Remaining Problems
+- When the player clicks the Player Deck before the cards disappear the graphics from both clicks get meshed together. Then, if they continue to click quickly the cards disappear at an unpredictable rate
+  * (This does not affect the game logic, but it looks bad)
+- There is no visual for when "War" is played
+- ~~No notification when someone wins~~
+- No multiplayer
+
+## User Stories
+1. As a user I would like to see which cards are played.
+2. As a user I would like to be able to reset the game so I can start over if I want/need to.
+3. As a user I would like to be notified of the current state of the game so I know what is happening behind the scenes.

@@ -174,6 +174,11 @@ var game = {
         this.playUpdates("The computer won the hand.");
       }
     }
+    if (this.hands[0].cards.length === 0) {
+      alert("Game Over! You Win!");
+    } else if (this.hands[1].cards.length === 0) {
+      alert("Game Over! Computer Wins");
+    }
   },
 
   updateRemainingCards: function() {
@@ -218,19 +223,13 @@ game.shuffleDeck();
 game.setUpHands();
 game.dealCards();
 
-
 game.elements.resetButton.addEventListener("click", function() {
   game.reset();
 });
 
 game.elements.flipButton.addEventListener("click", function() {
-  if (game.hands[0].cards.length > 0 && game.hands[1].cards.length > 0) {
     game.flipCards();
-
     game.stage = [];
-  } else {
-    alert("Game Over!");
-  }
   game.updateRemainingCards();
 });
 
