@@ -116,7 +116,7 @@ var game = {
     // grab the last card in players war pile
     var cardToCompare = this.war[0].cards.length - 1;
     if (this.war[0].cards[cardToCompare].weight === this.war[1].cards[cardToCompare].weight) {
-      alert("another war");
+      alert("Another War!!");
       this.playWarAgain();
     } else {
       this.war.sort(function(a, b) {
@@ -156,7 +156,7 @@ var game = {
           this.hands[0].cards.unshift(this.war[1].cards[y]);
         }
         this.playUpdates("It's a tie! You won the WAR!");
-      } else if (this.war[0].player === this.hands[1].name) {
+      } else {
         for (var x = 0; x < this.war[0].cards.length; x++) {
           this.hands[1].cards.unshift(this.war[0].cards[x]);
           this.hands[1].cards.unshift(this.war[1].cards[x]);
