@@ -71,6 +71,7 @@ var game = {
 
   },
 
+
   buildWarStage: function() {
     // IF the card weight is equal
     // go back 4 indexes in hands
@@ -79,32 +80,49 @@ var game = {
     // repeat until someone wins
     // all cards go to winners hand
     var self = this;
-
-    if (this.stage[0].card.weight === this.stage[1].card.weight) {
-      this.stage.forEach(function(hand) {
-        self.war.push({player: hand.player, cards: []});
-      });
-      this.hands.forEach(function(hand) {
-        if (hand.name === self.war[0].player) {
-          for (var j = 0; j < 4; j++) {
-            self.war[0].cards.push(hand.cards.pop());
-          }
-        } else if (hand.name === self.war[1].player) {
-          for (var k = 0; k < 4; k++) {
-            self.war[1].cards.push(hand.cards.pop());
-          }
+    this.stage.forEach(function(hand) {
+      self.war.push({player: hand.player, cards: []});
+    });
+    this.hands.forEach(function(hand) {
+      if (hand.name === self.war[0].player) {
+        for (var j = 0; j < 4; j++) {
+          self.war[0].cards.push(hand.cards.pop());
         }
-      });
-      return true;
-    } else {
-      return false;
-    }
+      } else if (hand.name === self.war[1].player) {
+        for (var k = 0; k < 4; k++) {
+          self.war[1].cards.push(hand.cards.pop());
+        }
+      }
+    });
+  },
+
+  playWarAgain: function() {
+    var self = this;
+    this.hands.forEach(function(hand) {
+      if (hand.name === self.war[0].player) {
+        for (var j = 0; j < 4; j++) {
+          self.war[0].cards.push(hand.cards.pop());
+        }
+      } else if (hand.name === self.war[1].player) {
+        for (var k = 0; k < 4; k++) {
+          self.war[1].cards.push(hand.cards.pop());
+        }
+      }
+    });
+    this.warWinner();
   },
 
   warWinner: function() {
-    this.war.sort(function(a, b) {
-      return b.cards[3].weight - a.cards[3].weight;
-    });
+    // grab the last card in players war pile
+    var cardToCompare = this.war[0].cards.length - 1;
+    if (this.war[0].cards[cardToCompare].weight === this.war[1].cards[cardToCompare].weight) {
+      alert("another war");
+      this.playWarAgain();
+    } else {
+      this.war.sort(function(a, b) {
+        return b.cards[cardToCompare].weight - a.cards[cardToCompare].weight;
+      });
+    }
   },
 
   showCards: function() {
@@ -129,23 +147,22 @@ var game = {
   flipCards: function() {
     this.cardsToStage();
     this.showCards();
-    if (this.buildWarStage()) {
+    if (this.stage[0].card.weight === this.stage[1].card.weight) {
+      this.buildWarStage();
       this.warWinner();
       if (this.war[0].player === this.hands[0].name) {
-        for (var y = 0; y < 4; y++) {
+        for (var y = 0; y < this.war[0].cards.length; y++) {
           this.hands[0].cards.unshift(this.war[0].cards[y]);
           this.hands[0].cards.unshift(this.war[1].cards[y]);
         }
         this.playUpdates("It's a tie! You won the WAR!");
       } else if (this.war[0].player === this.hands[1].name) {
-        for (var x = 0; x < 4; x++) {
+        for (var x = 0; x < this.war[0].cards.length; x++) {
           this.hands[1].cards.unshift(this.war[0].cards[x]);
           this.hands[1].cards.unshift(this.war[1].cards[x]);
         }
         this.playUpdates("It's a tie! The computer won the WAR.");
       }
-      setTimeout(function() {
-      }, 2000);
       this.giveStageCards(this.war[0]);
       this.war = [];
     } else {
@@ -157,7 +174,7 @@ var game = {
         this.playUpdates("The computer won the hand.");
       }
     }
-   },
+  },
 
   updateRemainingCards: function() {
     var playerRemaining = document.querySelector(".remaining .player");
