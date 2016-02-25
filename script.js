@@ -151,16 +151,10 @@ var game = {
       this.buildWarStage();
       this.warWinner();
       if (this.war[0].player === this.hands[0].name) {
-        for (var y = 0; y < this.war[0].cards.length; y++) {
-          this.hands[0].cards.unshift(this.war[0].cards[y]);
-          this.hands[0].cards.unshift(this.war[1].cards[y]);
-        }
+        this.giveWarCards(this.hands[0]);
         this.playUpdates("It's a tie! You won the WAR!");
       } else {
-        for (var x = 0; x < this.war[0].cards.length; x++) {
-          this.hands[1].cards.unshift(this.war[0].cards[x]);
-          this.hands[1].cards.unshift(this.war[1].cards[x]);
-        }
+        this.giveWarCards(this.hands[1]);
         this.playUpdates("It's a tie! The computer won the WAR.");
       }
       this.giveStageCards(this.war[0]);
@@ -200,6 +194,13 @@ var game = {
     }
   },
 
+  giveWarCards: function(playerToGive) {
+    for (var y = 0; y < this.war[0].cards.length; y++) {
+      playerToGive.cards.unshift(this.war[0].cards[y]);
+      playerToGive.cards.unshift(this.war[1].cards[y]);
+  }
+},
+
   playUpdates: function(update) {
     this.elements.gameUpdates.innerText = update;
   },
@@ -228,8 +229,8 @@ game.elements.resetButton.addEventListener("click", function() {
 });
 
 game.elements.flipButton.addEventListener("click", function() {
-    game.flipCards();
-    game.stage = [];
+  game.flipCards();
+  game.stage = [];
   game.updateRemainingCards();
 });
 
