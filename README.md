@@ -44,6 +44,6 @@ Simply clone down this repository to a folder on your computer and open the `ind
 - No multiplayer
 
 ## User Stories
-1. As a user I would like to see which cards are played.
+1. As a user I would like to see which cards are played when I click.
 2. As a user I would like to be able to reset the game so I can start over if I want/need to.
 3. As a user I would like to be notified of the current state of the game so I know what is happening behind the scenes.
