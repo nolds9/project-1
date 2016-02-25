@@ -198,8 +198,8 @@ var game = {
     for (var y = 0; y < this.war[0].cards.length; y++) {
       playerToGive.cards.unshift(this.war[0].cards[y]);
       playerToGive.cards.unshift(this.war[1].cards[y]);
-  }
-},
+    }
+  },
 
   playUpdates: function(update) {
     this.elements.gameUpdates.innerText = update;

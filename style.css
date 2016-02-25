@@ -50,12 +50,12 @@ button {
 }
 
 .hand {
-border: 2px solid black;
-font-size: 2.5em;
-font-weight: bold;
-border-radius: 15px;
-height: 300px;
-width: 215px;
+  border: 2px solid black;
+  font-size: 2.5em;
+  font-weight: bold;
+  border-radius: 15px;
+  height: 300px;
+  width: 215px;
 }
 
 .stage-area {
@@ -99,11 +99,11 @@ width: 215px;
 }
 
 .remaining .computer {
-margin-right: 65px;
-background-color: blue;
-border: 1px solid black;
-border-radius: 5px;
-padding: 0 5px;
+  margin-right: 65px;
+  background-color: blue;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0 5px;
 }
 
 .stage-card {
