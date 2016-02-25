@@ -1,7 +1,9 @@
 # Project 1
 ## War
 #### Gameplay
-This is my take on the classic, 2-player card game "War." It's a game in which a shuffled deck is dealt evenly to both players. The players then compare their top cards. The player with the highest card value will take both cards.
+This is my take on the classic, 2-player card game "War." It's a game in which a shuffled deck is dealt evenly to both players. The players then compare their top cards. The player with the highest card value will take both cards. The game ends when one player has no remaining cards.
+
+You can play the game [here](https://pkmoran.github.io/project-1).
 
 
 #### Technologies Used
