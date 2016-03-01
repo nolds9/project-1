@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>&clubs; &diams; War &hearts; &spades;</title>
-  <link rel="stylesheet" href="style.css" type="text/css" />
-</head>
-<body>
-  <header>
-    <h1>&clubs; <span class="red">&diams;</span> War <span class="red">&hearts;</span> &spades;</h1>
-  </header>
-  <div class="button">
-    <button id="reset">Reset</button>
-  </div>
+  <head>
+    <meta charset="UTF-8">
+    <title>&clubs; &diams; War &hearts; &spades;</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
+  <body>
+    <header>
+      <h1>&clubs; <span class="red">&diams;</span> War <span class="red">&hearts;</span> &spades;</h1>
+    </header>
+    <div class="button">
+      <button id="reset">Reset</button>
+    </div>
 
-  <div class="main">
-    <div class="player hand" id="flip">Player</div>
-    <div class="stage-area"></div>
-    <div class="computer hand">Computer</div>
-  </div>
-  <div class="remaining">
-    <h3 class="player">Remaining Cards: 26</h3>
-    <h3 class="computer">Remaining Cards: 26</h3>
-  </div>
+    <div class="main">
+      <div class="player hand" id="flip">Player</div>
+      <div class="stage-area"></div>
+      <div class="computer hand">Computer</div>
+    </div>
+    <div class="remaining">
+      <h3 class="player">Remaining Cards: 26</h3>
+      <h3 class="computer">Remaining Cards: 26</h3>
+    </div>
 
-  <div class="info">
-    <p class="updates"></p>
-    <p>
-      The game will end when one player's remaining cards reaches 0.
-    </p>
-    <p>
-      CLICK "Reset" to re-shuffle and re-deal.
-    </p>
-  </div>
+    <div class="info">
+      <!-- NHO: would consider moving this to a seperate div if you plan on adding to this in the future  -->
+      <p class="updates"></p>
+      <!-- NHO: recommend moving this to a div "instructions" that a user can toggle on and off with a button...  -->
+      <p>
+        The game will end when one player's remaining cards reaches 0.
+      </p>
+      <p>
+        CLICK "Reset" to re-shuffle and re-deal.
+      </p>
+    </div>
 
-  <script src="script.js" type="text/javascript"></script>
-</body>
+    <script src="script.js" type="text/javascript"></script>
+  </body>
 </html>
+<!-- NHO: good, clean, semantic Markup - and HTML validates!  -->

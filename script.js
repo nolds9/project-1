@@ -1,12 +1,17 @@
+// NHO: For variables such as these which we know will not change,
+// would recommend following the constant convention for naming: ALLCAPS, eg. SUITS
 var values = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"];
 var suits = ["clubs", "diamonds", "hearts", "spades"];
 
 var game = {
+  // NHO: if you consider refactoring to an OOJS approach,
+  // could think about which of these key-values make sense included in constructor function vs prototype
   deck: [],
   hands: [],
   players: ["Player 1", "Computer"],
   stage: [],
   war: [],
+  // NHO: love the semantic grouping!
   elements: {
     resetButton: document.getElementById("reset"),
     flipButton: document.getElementById("flip"),
@@ -20,11 +25,18 @@ var game = {
       suits.forEach(function(suit) {
         self.deck.push({value: value, suit: suit, weight: values.indexOf(value)});
         // weight is how we will determine winners
+        // NHO: code comments +1!
       });
     });
   },
 
   shuffleDeck: function() {
+    // NHO: for this method, I think it makes the most sense to:
+    //  - take an array (deck) as a parameter
+    // - return the shuffled array (deck) as output
+    // follows best practice for functions to be PURE
+    //  - meaning only input and output, rather than relying on side effects to update program's state
+
     // Fisher-Yates shuffle
     for (var i = this.deck.length - 1; i > 0; i--) {
       var randomIndex = Math.floor(Math.random() * i);
@@ -43,6 +55,9 @@ var game = {
   },
 
   dealCards: function() {
+    // NHO: have gone back and forth on whether its worth it to simplify this method
+      // i.e. just randomly assign half the deck to one player via .splice(0,26)
+      // but feel like this is best representation of actually dealing cards
     // deal one card to each player, then repeat until the deck is empty
     while (this.deck.length > 0) {
       for (var i = 0; i < this.hands.length; i++) {
@@ -68,9 +83,7 @@ var game = {
     this.stage.sort(function(a, b) {
       return b.card.weight - a.card.weight;
     });
-
   },
-
 
   buildWarStage: function() {
     // IF the card weight is equal
@@ -84,10 +97,12 @@ var game = {
       self.war.push({player: hand.player, cards: []});
     });
     this.hands.forEach(function(hand) {
+      // NHO: if player hand...
       if (hand.name === self.war[0].player) {
         for (var j = 0; j < 4; j++) {
           self.war[0].cards.push(hand.cards.pop());
         }
+        // NHO: if computer hand...
       } else if (hand.name === self.war[1].player) {
         for (var k = 0; k < 4; k++) {
           self.war[1].cards.push(hand.cards.pop());
@@ -95,7 +110,7 @@ var game = {
       }
     });
   },
-
+  // how could we combine this method, with the above buildWarStage method
   playWarAgain: function() {
     var self = this;
     this.hands.forEach(function(hand) {
@@ -114,6 +129,7 @@ var game = {
 
   warWinner: function() {
     // grab the last card in players war pile
+    // NHO: thinking about this again, a better name might be cardIndexToCompare...
     var cardToCompare = this.war[0].cards.length - 1;
     if (this.war[0].cards[cardToCompare].weight === this.war[1].cards[cardToCompare].weight) {
       alert("Another War!!");
@@ -126,6 +142,8 @@ var game = {
   },
 
   showCards: function() {
+     // NHO: have been thinking about how to speed this up:
+     // One option might be to have predefined classes, then use data-attributes or JS to dynamically add and remove the correct classes
     var self = this;
     for (var i = 0; i < 2; i++) {
       var stageCard = document.createElement("div");
@@ -145,6 +163,7 @@ var game = {
   },
 
   flipCards: function() {
+    // NHO: one way to help improve readibility / remove complexity would be to save reoccuring values into local variables used in this method
     this.cardsToStage();
     this.showCards();
     if (this.stage[0].card.weight === this.stage[1].card.weight) {
@@ -235,3 +254,13 @@ game.elements.flipButton.addEventListener("click", function() {
 });
 
 game.playUpdates("The deck has been shuffled and dealt. CLICK the player deck to flip the cards!");
+
+// NHO: Overall, this is some good, solid code! Great job taking an object-oriented approach
+// and then thinking critically about how to break down the game into its logical methods / components.
+
+// Some things to consider in the future:
+//  - how you could remove complexity where possible
+//  - What components of your code are you hard-coding? How could those be dynamic?
+// - What blocks of code are used often? How could we make it more DRY
+// - How could we utilize other libraries such as jQuery to help clean up code?
+// -What would be the benefits of incorporating constructor functions and prototypes?

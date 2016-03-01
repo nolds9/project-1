@@ -1,3 +1,4 @@
+/* NHO: really like design and layout - and CSS validates! */
 * {
   box-sizing: border-box;
   font-family: sans-serif;
@@ -72,14 +73,14 @@ button {
 }
 
 .main .player {
+  /* NHO: would recommend downloading the image and serving it locally to avoid future 404 errors */
   background-image: url("https://cdn.shopify.com/s/files/1/0200/7616/products/aladdin-back-red_large.png?v=1443563775");
   background-size: contain;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
 }
 
-
-
 .main .computer {
+  /* NHO: would recommend downloading the image and serving it locally to avoid future 404 errors */
   background-image: url("https://cdn.shopify.com/s/files/1/0200/7616/products/aladdin-back-blue_large.png?v=1443563775");
   background-size: contain;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
@@ -117,3 +118,13 @@ button {
   height: 305px;
   width: 215px;
 }
+/* NHO: good job incorporating flexbox! */
+/* Some things to consider for the future:
+  - how to use media queries to make the page more responsive
+  - how to incorporate modals/lightboxes as a way to enhance the UI and interact with the user
+  - utilizing CSS transistions and animations to bring your game to life
+  Stylistically some feature suggestions:
+    - On page load, pop up modal with instructions, or a button to show/hide instructions
+    - flash notications for the game updates
+    - player Victory/Defeat styles
+ */
